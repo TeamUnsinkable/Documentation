@@ -8,4 +8,4 @@
 ## ROS
 |  Lesson #   |                                                                       Title                                                                        | Description  | Difficulty |
 |:-----------:|:--------------------------------------------------------------------------------------------------------------------------------------------------:|:------------:|:----------:|
-|      1      | [Jetson Camera ROS](https://github.com/TeamUnsinkable/Documentation/blob/6e60194a6cb7224beee2bea83d89b2f3583bb849/Pages/Jetson%20Camera%20ROS.md)  | IDE & Github |     1      |
+|      1      | [Jetson Camera ROS](https://github.com/TeamUnsinkable/Documentation/blob/68e18c50daf697750dd8cbb7ee0891e86248d19c/Pages/Jetson%20Camera%20ROS.md)  | IDE & Github |     1      |
