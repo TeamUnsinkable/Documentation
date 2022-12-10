@@ -1,4 +1,5 @@
 # Jetson Camera ROS
+## Setting up ROS Core & Camera Stream
 Find IP address of machine running roscore, 
 run `ifconfig`
 
