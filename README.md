@@ -1,11 +1,41 @@
-# Getting Started
+# Website
 
-## Beginning
-|  Lesson #   |                                                                                  Title                                                                                   | Description  | Difficulty |
-|:-----------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------:|:----------:|
-|      1      | [Getting Started With Python](https://github.com/TeamUnsinkable/Documentation/blob/b56f33e6695445f508de50c662045b2c5c8bece1/Pages/Getting%20Started%20With%20Python.md)  | IDE & Github |     1      |
+This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
-## ROS
-|  Lesson #   |                                                                       Title                                                                        | Description  | Difficulty |
-|:-----------:|:--------------------------------------------------------------------------------------------------------------------------------------------------:|:------------:|:----------:|
-|      1      | [Jetson Camera ROS](https://github.com/TeamUnsinkable/Documentation/blob/68e18c50daf697750dd8cbb7ee0891e86248d19c/Pages/Jetson%20Camera%20ROS.md)  | IDE & Github |     1      |
+### Installation
+
+```
+$ yarn
+```
+
+### Local Development
+
+```
+$ yarn start
+```
+
+This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+
+### Build
+
+```
+$ yarn build
+```
+
+This command generates static content into the `build` directory and can be served using any static contents hosting service.
+
+### Deployment
+
+Using SSH:
+
+```
+$ USE_SSH=true yarn deploy
+```
+
+Not using SSH:
+
+```
+$ GIT_USER=<Your GitHub username> yarn deploy
+```
+
+If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
