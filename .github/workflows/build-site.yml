@@ -40,16 +40,19 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Copy language files
-        run: cp docs/ /il8n/fr/
-        run: cp docs/ /il8n/es/
-        run: cp docs/ /il8n/zh-cn/
-      - name: Build Website
+        run: | 
+          cp docs/ /il8n/fr/
+          cp docs/ /il8n/es/
+          cp docs/ /il8n/zh-cn/
+      - name: Configure Nodejs
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-        run: npm ci
-        run: npm run build
+      - name: Build Project
+        run: | 
+          npm ci
+          npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
