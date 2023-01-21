@@ -6,25 +6,25 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'AMRA',
-  tagline: 'The offical Documentation site for the Embry-Riddle Aeronuatical University DB Campus - Autonomous Maritime Robotics Association.',
+  title: ' ',
+  tagline: 'The offical documentation page for ERAU\'s DB Campus AMRA SGO. ',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/team-unsinkable/unsinkable.ico',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'TeamUnsinkable', // Usually your GitHub org/user name.
+  projectName: 'Documentation', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'es', 'zh-cn'],
   },
 
   presets: [
@@ -38,7 +38,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/TeamUnsinkable/tree/dev/',
+            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: false,
         theme: {
@@ -52,10 +52,11 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: ' ',
         logo: {
           alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          src: 'img/team-unsinkable/Team-Unsinkable-logo-500-black.png',
+          srcDark: 'img/team-unsinkable/Team-Unsinkable-logo-500-white.png'
         },
         items: [
           {
@@ -63,7 +64,12 @@ const config = {
             docId: 'intro',
             position: 'left',
             label: 'Documentation',
+            include: '*.png'
           },
+          {
+            type: 'localeDropdown',
+            position: 'right',
+          }
         ],
       },
       footer: {
@@ -111,6 +117,10 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
+      colorMode: {
+        defaultMode: 'dark',
+        respectPrefersColorScheme: false,
+      }
     }),
 };
 

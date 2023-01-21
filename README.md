@@ -39,3 +39,7 @@ $ GIT_USER=<Your GitHub username> yarn deploy
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+
+cp docs/ to docusaurus-plugin-content-docs/current
+then build
+CI job will build then deploy
