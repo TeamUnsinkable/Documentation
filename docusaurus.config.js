@@ -9,7 +9,7 @@ const config = {
   title: ' ',
   tagline: 'The offical documentation page for ERAU\'s DB Campus AMRA SGO. ',
   url: 'https://teamunsinkable.github.io/',
-  baseUrl: '/',
+  baseUrl: '/Documentation',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/team-unsinkable/unsinkable.ico',
@@ -79,8 +79,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Intoduction',
+                to: '/',
               },
             ],
           },
