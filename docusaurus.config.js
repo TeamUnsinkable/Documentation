@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: ' ',
   tagline: 'The offical documentation page for ERAU\'s DB Campus AMRA SGO. ',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://teamunsinkable.github.io/Documentation/',
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
