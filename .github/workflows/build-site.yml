@@ -40,10 +40,10 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Copy language files
-        run: | 
-          cp docs/ il8n/fr/ -r
-          cp docs/ il8n/es/ -r
-          cp docs/ il8n/zh-cn/ -r
+        run: |
+          cp docs/ il8n/fr/docusaurus-plugin-content-docs/current -r
+          cp docs/ il8n/es/docusaurus-plugin-content-docs/current -r
+          cp docs/ il8n/zh-cn/docusaurus-plugin-content-docs/current -r
       - name: Configure Nodejs
         uses: actions/setup-node@v3
         with:
