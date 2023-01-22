@@ -41,9 +41,9 @@ jobs:
         uses: actions/configure-pages@v2
       - name: Copy language files
         run: | 
-          cp /docs/ /il8n/fr/
-          cp /docs/ /il8n/es/
-          cp /docs/ /il8n/zh-cn/
+          cp docs/ il8n/fr/
+          cp docs/ il8n/es/
+          cp docs/ il8n/zh-cn/
       - name: Configure Nodejs
         uses: actions/setup-node@v3
         with:
