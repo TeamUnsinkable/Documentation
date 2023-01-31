@@ -51,7 +51,7 @@ jobs:
           cache: 'npm'
       - name: Build Project
         run: | 
-          npm ci
+          npm i
           npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
