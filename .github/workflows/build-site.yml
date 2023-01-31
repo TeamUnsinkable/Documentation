@@ -41,9 +41,6 @@ jobs:
         uses: actions/configure-pages@v2
       - name: Copy language files
         run: |
-          mkdir il8n/fr/docusaurus-plugin-content-docs/current -p
-          mkdir il8n/es/docusaurus-plugin-content-docs/current =p
-          mkdir il8n/zh-cn/docusaurus-plugin-content-docs/current -p
           cp docs/ il8n/fr/docusaurus-plugin-content-docs/current -r
           cp docs/ il8n/es/docusaurus-plugin-content-docs/current -r
           cp docs/ il8n/zh-cn/docusaurus-plugin-content-docs/current -r

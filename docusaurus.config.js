@@ -9,7 +9,7 @@ const config = {
   title: ' ',
   tagline: 'The offical documentation page for ERAU\'s DB Campus AMRA SGO. ',
   url: 'https://teamunsinkable.github.io/',
-  baseUrl: '/Documentation',
+  baseUrl: '/Documentation/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/team-unsinkable/unsinkable.ico',
@@ -54,7 +54,7 @@ const config = {
       navbar: {
         title: ' ',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Team Unsinkable ',
           src: 'img/team-unsinkable/Team-Unsinkable-logo-500-black.png',
           srcDark: 'img/team-unsinkable/Team-Unsinkable-logo-500-white.png'
         },
@@ -111,7 +111,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Team Unsinkable | Built with Docusaurus`,
       },
       prism: {
         theme: lightCodeTheme,
