@@ -1,9 +1,8 @@
 {
-    "label": "Programming Environemnts",
-    "position": 2,
-    "link": {
-      "type": "generated-index",
-      "description": "This covers installation of any software tools or environemnts that you will use while at AMRA."
-    }
+  "label": "Developer Guides",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "This covers installation of any software tools or environemnts that you will use while at AMRA."
   }
-  
+}

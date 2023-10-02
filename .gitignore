@@ -8,6 +8,15 @@
 .docusaurus
 .cache-loader
 
+# Yarn 
+.yarn
+.yarn-integrity
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
 # Misc
 .DS_Store
 .env.local

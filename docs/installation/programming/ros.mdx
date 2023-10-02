@@ -1,19 +1,209 @@
 ---
-title: Robot Operating System (ROS)
-description: Download and configure PyCharm and your virtual environment 
-index: 2
+title: Setup ROS 2 Environments Using Docker
+description: Learn to set up and manage ROS 2 environemnts using Docker.
+index: 1
 draft: true
 ---
 
-## What is ROS?
-ROS can be though of as a communication layer for any and all components of any robot. Multiple computers in the network can join this network as long as they are connected to the same LAN (Local Area Netowork), 
-in our case we use a router that broadcasts the `AMRA Ground Station` and `AMRA Ground Station 5G` networks. Without getting too technical here's a birds eye view of how ROS works.
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import Windows from "./../../../docs_extended/programming/install/windows.md";
+import Ubuntu from "./../../../docs_extended/programming/install/ubuntu.md";
+import Macos from "./../../../docs_extended/programming/install/macos.md";
 
-### ROS Explaination 
-Here is a look at a basic ROS network
+# Setup ROS 2 Environments Using Docker
 
-```mermaid
-stateDiagram-v2
-    [*] -- > ROS Master
+## Overview
 
+Contrary to its name, ROS is not an operating system.
+An operating system serves as an interface between the computer hardware and the software applications.
+ROS, on the other hand, acts as middleware, sitting between the operating system and our code, thereby facilitating the reading of sensors and control of motors.
+This page will walk you through how to set up a ROS 2 environment using Docker containers.
+
+## Installing Docker
+
+Docker is used to simulate environments as it allows for consistent application deployment in isolated containers, simplifying setup and sharing of our ROS configurations among team members.
+A container is a sandboxed process running on a host machine that is isolated from all other processes running on that host machine.
+
+<Tabs groupId="os">
+  <TabItem value="win" label="Windows" default>
+    <ol type="1">
+      <li>
+        Download Docker&nbsp;
+        <a href="https://www.docker.com/products/docker-desktop/">
+          https://www.docker.com/products/docker-desktop/
+        </a>
+      </li>
+      <br></br>
+      <li>
+        Install Docker by doubled clicking{" "}
+        <code>Docker Desktop Install.exe</code>. Leave the settings as default.
+      </li>
+      <br></br>
+      <li>
+        Once the installation is complete, you'll see Docker running idicated by
+        your system tray.
+      </li>
+      <br></br>
+      <li>
+        To verify the installation, open up the command prompt and type{" "}
+        <code>docker --version</code>.
+      </li>
+    </ol>
+  </TabItem>
+  <TabItem value="macOS" label="Mac OS" default>
+    <ol type="1">
+      <li>
+        Download Docker&nbsp;
+        <a href="https://www.docker.com/products/docker-desktop/">
+          https://www.docker.com/products/docker-desktop/
+        </a>
+      </li>
+      <br></br>
+      <li>
+        Double click the <code>Docker.dmg</code> file you downloaded and drag
+        the icon to your applicatios folder.
+      </li>
+      <br></br>
+      <li>
+        Go to your applications folder and start Docker. The first time you run
+        Docker it will ask for permissions to install networking components.
+      </li>
+      <br></br>
+      <li>
+        Verify the installation by typing <code>docker --version</code> in your
+        terminal.
+      </li>
+    </ol>
+  </TabItem>
+  <TabItem value="ubuntu" label="Ubuntu" default>
+    <ol type="1">
+      <li>
+        Update your package list
+        <pre>
+          <code>sudo apt-get update</code>
+        </pre>
+      </li>
+      <li>
+        Install Docker's dependencies by using
+        <pre>
+          <code>
+            sudo apt-get install apt-transport-https ca-certificates curl gnupg
+            lsb-release
+          </code>
+        </pre>
+      </li>
+      <li>
+        Add Docker's official GPG key
+        <pre>
+          <code>
+            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg
+            --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+          </code>
+        </pre>
+      </li>
+      <li>
+        Set up the Docker stable repository
+        <pre>
+          <code>
+            echo \ "deb [arch=$(dpkg --print-architecture)
+            signed-by=/usr/share/keyrings/docker-archive-keyring.gpg]
+            https://download.docker.com/linux/ubuntu \ $(lsb_release -cs)
+            stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+          </code>
+        </pre>
+      </li>
+      <li>
+        Update the package list again
+        <pre>
+          <code>sudo apt-get update</code>
+        </pre>
+      </li>
+      <li>
+        Install the Docker engine
+        <pre>
+          <code>
+            sudo apt-get install docker-ce docker-ce-cli containerd.io
+          </code>
+        </pre>
+      </li>
+      <li>
+        Verify Docker is installed
+        <pre>
+          <code>sudo systemctl status docker</code>
+        </pre>
+        You should see output indicating that the Docker service is active and
+        running.
+      </li>
+      <li>
+        Test docker by running
+        <pre>
+          <code>docker --version</code>
+        </pre>
+      </li>
+    </ol>
+  </TabItem>
+</Tabs>
+
+## Basic Docker Concepts
+
+### Container
+
+A container is a self-contained software package that includes code, runtime, libraries, and environment variables, isolated from others yet sharing the OS kernel.
+
+### Image
+
+A Docker image is a lightweight, standalone package, acting as a read-only template to create containers, built using the `docker build` command.
+
+### Docker Compose
+
+Docker Compose is a tool for defining and managing multi-container Docker applications, using a YAML file for configuration and a single command to create and start services.
+
+## Configuring a ROS 2 Container
+
+### Setup
+
+Navigate to a ROS 2 workspace and create a file named `docker-compose.yml`. Paste the following code inside:
+
+```
+version: "3"
+services:
+  ros-container:
+    container_name: ros-container
+    image: ros:humble
+    volumes:
+      - .:/root/my-workspace
+    stdin_open: true
+    tty: true
+```
+
+This Docker Compose snippet defines a service named `ros-container` that uses the `ros:humble` image and maps the current directory on the host to `/root/my-workspace` inside the container.
+
+### Initialization
+
+To start up the service we defined, run the command
+
+```
+docker-compose up -d
+```
+
+A ROS 2 environment is now active within the container, ready for interaction.
+
+Next, we'll use `docker exec` to attach to this container, allowing us to interact with the ROS 2 environment directly.
+
+```
+docker exec -it ros-container bash
+```
+
+Navigate to the workspace defined in `docker-compose.yml`.
+
+```
+cd /root/my-workspace
+```
+
+To stop the container, exit the container by typing `exit`.
+Stop the container by using
+
+```
+docker-compose down
 ```
