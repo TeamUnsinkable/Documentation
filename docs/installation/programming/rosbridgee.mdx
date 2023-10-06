@@ -1,0 +1,118 @@
+---
+title: ROS Bridge Example
+description: Learn to set up and manage a ROS 1 and 2 environemnt using Docker.
+index: 1
+draft: true
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import Windows from "./../../../docs_extended/programming/install/windows.md";
+import Ubuntu from "./../../../docs_extended/programming/install/ubuntu.md";
+import Macos from "./../../../docs_extended/programming/install/macos.md";
+
+# ROS Bridge Example
+
+This document will guide you through running a bridge between ROS 1 and ROS 2 topics using a preconfigured environment located [at this repository](https://github.com/TeamUnsinkable/ROS-Bridge-Example).
+
+## Running the Example
+
+### Prerequisists
+
+- [Docker](https://www.docker.com)
+
+### Setup
+
+1. Clone the repository and navigate into it
+
+```sh
+git clone https://github.com/TeamUnsinkable/ROS-Bridge-Example.git
+cd ROS-Bridge-Example
+```
+
+2. Build the image and initiate the container
+
+```sh
+docker-compose up --build -d
+```
+
+3. Access the container
+
+```sh
+# List all running containers
+docker ps
+
+# Use the ID of the recently initialized container to enter it
+docker exec -it <id> bash
+```
+
+4. Navigate into the volume where the workspace is
+
+```bash
+cd /root/workspace
+```
+
+5. Build all packages using the provided build script
+
+```bash
+bash build_all.bash
+```
+
+### Running the Bridge
+
+**Important:** When running this demo, ensure you only source the specified workspaces. Mixing workspaces can lead to errors.
+
+6a. First begin by starting ROS 1 `roscore`
+
+```bash
+# Shell A (ROS 1 Only)
+source /opt/ros/noetic/setup.bash
+roscore
+```
+
+6b. Launch the bridge
+
+```bash
+# Shell B (ROS 1 + ROS 2)
+source /opt/ros/noetic/setup.bash
+source /opt/ros/foxy/setup.bash
+export ROS_MASTER_URI=http://localhost:11311
+source /root/bridge/install/setup.bash
+ros2 run ros1_bridge dynamic_bridge
+```
+
+The program will output the currently available topics in ROS 1 and ROS 2 in a regular interval.
+
+6c. Run the talker node
+
+```bash
+# Shell C (ROS 1)
+source ${ROS1_WORKSPACE_PATH}/devel/setup.bash
+chmod +x ${ROS1_WORKSPACE_PATH}/src/talker/scripts/talker_node.py
+rosrun talker talker_node.py
+```
+
+6d. Run the listener node
+
+```bash
+# Shell D (ROS 2)
+source ${ROS2_WORKSPACE_PATH}/install/setup.bash
+chmod +x ${ROS2_WORKSPACE_PATH}/src/listener/listener/listener_node.py
+ros2 run listener listener_node
+```
+
+### Cleanup
+
+7. Use `ctrl+c` to stop any processes
+
+8. Exit the container
+
+```bash
+exit
+```
+
+9. Stop the container ()
+
+```bash
+docker-compose down
+```
