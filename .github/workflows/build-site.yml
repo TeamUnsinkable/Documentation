@@ -2,60 +2,73 @@
 name: Deploy Documentation Site
 
 on:
-  # Runs on pushes targeting the default branch
+  # Builds run for every push to the default branch
   push:
-    branches: ["main"]
-
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [ "main" ]
+  # …and on manual dispatch
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# GitHub Pages v4 now pulls the artifact through the Actions API,
+# so it needs `actions: read` in addition to the usual scopes.
 permissions:
   contents: read
-  pages: write
+  pages:    write
   id-token: write
+  actions:  read
 
-# Allow one concurrent deployment
+# One deployment at a time
 concurrency:
-  group: "pages"
+  group:   "pages"
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
-
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url:  ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [ 20.x ]   # latest LTS as of mid‑2025
+
     steps:
+      # 1 — checkout repo (v4)
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
+        uses: actions/checkout@v4
+
+      # 2 — enable & configure Pages 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 3 — copy localised docs 
       - name: Copy language files
         run: |
-          cp docs/ il8n/fr/docusaurus-plugin-content-docs/current -r
-          cp docs/ il8n/es/docusaurus-plugin-content-docs/current -r
-          cp docs/ il8n/zh-cn/docusaurus-plugin-content-docs/current -r
-      - name: Configure Nodejs
-        uses: actions/setup-node@v3
+          cp -r docs/ i18n/fr/docusaurus-plugin-content-docs/current
+          cp -r docs/ i18n/es/docusaurus-plugin-content-docs/current
+          cp -r docs/ i18n/zh-cn/docusaurus-plugin-content-docs/current
+
+      # 4 — setup Node (v4)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - name: Build Project
-        run: | 
-          npm i
+          cache: npm
+
+      # 5 — install deps & build site
+      - name: Build project
+        run: |
+          npm ci
           npm run build
+
+      # 6 — upload the build as a GitHub Pages artifact (v3) :contentReference[oaicite:1]{index=1}
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: './build'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+          path: ./build
+
+      # 7 — deploy the artifact to Pages (v4) :contentReference[oaicite:2]{index=2}
+      - name: Deploy to GitHub Pages
+        id:   deployment
+        uses: actions/deploy-pages@v4
