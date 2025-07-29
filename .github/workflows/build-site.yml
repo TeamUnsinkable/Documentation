@@ -45,9 +45,9 @@ jobs:
       # 3 — copy localised docs 
       - name: Copy language files
         run: |
-          cp -r docs/ i18n/fr/docusaurus-plugin-content-docs/current
-          cp -r docs/ i18n/es/docusaurus-plugin-content-docs/current
-          cp -r docs/ i18n/zh-cn/docusaurus-plugin-content-docs/current
+          cp docs/ il8n/fr/docusaurus-plugin-content-docs/current -r
+          cp docs/ il8n/es/docusaurus-plugin-content-docs/current -r
+          cp docs/ il8n/zh-cn/docusaurus-plugin-content-docs/current -r
 
       # 4 — setup Node (v4)
       - name: Setup Node.js
