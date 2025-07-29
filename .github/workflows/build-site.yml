@@ -55,10 +55,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
+      
 
       # 5 — install deps & build site
       - name: Build project
         run: |
+          npm install
           npm ci
           npm run build
 
