@@ -36,3 +36,5 @@ git clone https://gitlab.com/embry-riddle-robosub-team/robosub-workspace.git
 cd robosub-workspace
 git switch develop
 ```
+
+all done
